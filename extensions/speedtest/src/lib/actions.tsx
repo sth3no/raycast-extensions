@@ -133,10 +133,7 @@ export function MeterImageActions({ markup }: { markup: string }) {
       <Action
         title="Save Meter Image to Downloads"
         icon={Icon.Download}
-        shortcut={{
-          macOS: { modifiers: ["cmd", "shift"], key: "d" },
-          Windows: { modifiers: ["ctrl", "shift"], key: "d" },
-        }}
+        shortcut={Keyboard.Shortcut.Common.Save}
         onAction={() => share("save")}
       />
     </>

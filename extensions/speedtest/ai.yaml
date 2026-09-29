@@ -1,6 +1,9 @@
 instructions: |
   Use run-speedtest when the user asks to measure their current internet connection.
   Each call starts a new test. Report the measured values with their units and do not imply that a past result is current.
+  When the user asks whether the connection is good enough for calls or streaming, answer from supportedQualities.
+  It lists the voice call, video call and streaming qualities the measured speeds support, using the same thresholds as the Speedtest command.
+  An empty list means the connection is too slow for that activity.
 
 evals:
   - input: "@speedtest How fast is my internet connection right now?"
@@ -14,6 +17,10 @@ evals:
         isp: "Example ISP"
         server: "Example Server, New York"
         resultUrl: "https://www.speedtest.net/result/example"
+        supportedQualities:
+          voiceCall: ["SD", "HD"]
+          videoCall: ["480", "720", "1080", "4K"]
+          streaming: ["480", "720", "1080"]
     expected:
       - callsTool: run-speedtest
       - includes: "120 Mbps"
@@ -30,7 +37,30 @@ evals:
         isp: "Example ISP"
         server: "Example Server, New York"
         resultUrl: "https://www.speedtest.net/result/example"
+        supportedQualities:
+          voiceCall: ["SD", "HD"]
+          videoCall: ["480", "720", "1080"]
+          streaming: ["480", "720", "1080"]
     expected:
       - callsTool: run-speedtest
       - includes: "28 ms"
       - matches: "1\\s?%"
+
+  - input: "@speedtest Is my connection good enough to stream in 4K?"
+    mocks:
+      run-speedtest:
+        download: "18 Mbps"
+        upload: "6 Mbps"
+        pingMs: 22
+        jitterMs: 3
+        packetLossPercent: 0
+        isp: "Example ISP"
+        server: "Example Server, New York"
+        resultUrl: "https://www.speedtest.net/result/example"
+        supportedQualities:
+          voiceCall: ["SD", "HD"]
+          videoCall: ["480", "720", "1080"]
+          streaming: ["480", "720"]
+    expected:
+      - callsTool: run-speedtest
+      - meetsCriteria: "Says the connection is not fast enough for 4K streaming and mentions that it supports streaming up to 720"

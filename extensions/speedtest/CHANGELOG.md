@@ -1,5 +1,12 @@
 # Speedtest Changelog
 
+## [Raycast 2 Upgrade] - {PR_MERGE_DATE}
+
+- Upgraded to Raycast API 2.5 (Node.js 22, React 19 types, ESLint 10).
+- Ask Speedtest now also reports which voice call, video call and streaming qualities the connection supports, using the same thresholds as the command, so questions like "Can I stream in 4K?" get a consistent answer.
+- "Save Meter Image to Downloads" now uses the standard Save shortcut (⌘S).
+- The meter's text falls back to the Windows system font when Apple's system font isn't available.
+
 ## [Add Ask AI Raycast Command] - 2026-09-27
 
 - Added Ask Speedtest in Raycast AI to run a speed test and answer questions about the current connection.

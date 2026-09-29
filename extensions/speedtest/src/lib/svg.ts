@@ -26,7 +26,8 @@ export const theme = {
   bad: accents.red,
 };
 
-export const FONT = `font-family="-apple-system, Helvetica, sans-serif"`;
+// Raycast 2.0 also runs on Windows, where -apple-system and Helvetica don't exist.
+export const FONT = `font-family="-apple-system, 'Segoe UI', system-ui, Helvetica, sans-serif"`;
 
 export function svg(w: number, h: number, body: string): string {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">${body}</svg>`;
